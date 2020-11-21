@@ -1,4 +1,5 @@
 " Used on WSL2/OSX/Linux. Will not work in Windows.
+
 " Enable modern Vim features not compatible with Vi spec.
 set nocompatible
 
@@ -104,10 +105,12 @@ if has('nvim')
 	" Sidekick plugin, direct dependencies, and helpful debug utils.
 	" WARNING: sidekick plugin not yet ready for development.
 	"Plug 'ElPiloto/sidekick.nvim'
-	"Plug 'nvim-treesitter/nvim-treesitter'
-	"Plug 'tree-sitter/tree-sitter-python'
-	"Plug 'nvim-treesitter/tree-sitter-lua'
 	"Plug 'nvim-treesitter/playground'
+	
+	" These are needed for sidekick but also helpful on their own.
+	Plug 'nvim-treesitter/nvim-treesitter'
+	Plug 'tree-sitter/tree-sitter-python'
+	Plug 'nvim-treesitter/tree-sitter-lua'
 
 	" Helpful neovim plugins and dependency.
 	Plug 'nvim-lua/telescope.nvim'
@@ -358,19 +361,19 @@ if !exists(":DiffOrig")
           \ | wincmd p | diffthis
 endif
 
-" Edit our "real" vimrc
+" Edit our vimrc
 if !exists(":Vimrc")
   command Vimrc execute ':edit ' . g:vimrc
   nnoremap <leader>ve :execute ':edit ' . g:vimrc<CR>
 endif
 
-" Edit our "real" vimrc in vert split
+" Edit our vimrc in vert split
 if !exists(":Vvimrc")
   command Vvimrc execute ':vsp ' . g:vimrc
   nnoremap <leader>vv :execute ':vsp ' . g:vimrc<CR>
 endif
 
-" Source our "real" vimrc
+" Source our vimrc
 if !exists(":Svimrc")
   command Svimrc execute ':source ' . g:vimrc
   nnoremap <leader>vs :execute ':source ' . g:vimrc<CR>
@@ -484,8 +487,16 @@ if has('nvim')
 	" will flicker on scroll. Dumb, but does the job.
 	let g:context_nvim_no_redraw = 1
 
+" Uncomment this to enable semantic highlighting. I like my color scheme
+" without the semantic highlighting as you get more of the red.
+"lua <<EOF
+	"require "nvim-treesitter.configs".setup {
+  "highlight = {
+ "enable = true,
+ "disable = {'vim',}
+ "},
+"}
 "EOF
-
 endif
 
 " *****************************************
